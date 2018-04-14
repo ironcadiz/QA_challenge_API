@@ -12,6 +12,14 @@ module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define(
     "user",
     {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -21,12 +29,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      gitToken: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      }
     },
     {
       classMethods: {
         associate: function(models) {
           user.hasMany(models.Repository, {foreignKey:"ownerId"})
-          
+          user.hasMany(models.Commits, {foreignKey:"userId"})
+          user.belongsToMany(Repository, {through: 'users_has_repositories'});     
         },
       },
     }

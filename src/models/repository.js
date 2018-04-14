@@ -3,14 +3,18 @@ module.exports = (sequelize, DataTypes) => {
     "Repository",
     {
       name: DataTypes.STRING,
-      repoId: DataTypes.STRING,
       score: DataTypes.INTEGER,
-      ownerId: DataTypes.INTEGER,
+      url: DataTypes.STRING,
+      repoId: DataTypes.STRING
     },
     {}
   )
   Repository.associate = function(models) {
-    Repository.belongsTo(models.user, {foreignKey:"ownerId"})
+
+    Repository.belongsTo(model.user, {foreignKey:"ownerId"})
+    Repository.hasMany(models.commits, {foreignKey:"repositoryId"})
+    Repository.belongsToMany(user, {through: 'users_has_repositories'});     
+
   }
   return Repository
 }
