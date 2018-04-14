@@ -19,7 +19,8 @@
     "nodemon": "^1.12.1",
     "pg": "^7.4.0",
     "prettier": "^1.8.1",
-    "sequelize": "^4.22.5"
+    "sequelize": "^4.22.5",
+    "@octokit/rest": "^15.2.6"
   },
   "scripts": {
     "start": "node index.js",
