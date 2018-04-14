@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   )
   Repository.associate = function(models) {
-    Repository.belongsTo(model.user, {foreignKey:"ownerId"})
+    Repository.belongsTo(models.user, {foreignKey:"ownerId"})
   }
   return Repository
 }

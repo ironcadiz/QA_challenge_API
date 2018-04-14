@@ -1,6 +1,6 @@
 const KoaRouter = require("koa-router")
 const jwtgenerator = require("jsonwebtoken")
-const octokit = require('@octokit/rest')
+const github = require('octonode');
 
 const router = new KoaRouter()
 
@@ -24,13 +24,11 @@ router.post("auth", "/", async ctx => {
   }
 })
 
-router.post("git.auth", "git", async ctx => {
+router.post("git.auth", "/git", async ctx => {
   const gitToken = ctx.request.headers.token
-  const client = await octokit.authorization.check(gitToken)
-  // check if client is valid?
-  
+  const client = await github.client(gitToken)
 
-
+  ctx.body = { client }
 })
 
 module.exports = router
