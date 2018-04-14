@@ -1,21 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Commits', {
+    return queryInterface.createTable('commits', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      branch: {
+        type: Sequelize.STRING
+      },
       commitId: {
         type: Sequelize.STRING
       },
       score: {
         type: Sequelize.INTEGER
-      },
-      branch: {
-        type: Sequelize.STRING
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -31,7 +31,7 @@ module.exports = {
         onDelete: "CASCADE",
         allowNull: false,
         references: {
-          model: 'Repositories',
+          model: 'repositories',
           key: 'id'
         }
       },
@@ -46,6 +46,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Commits');
+    return queryInterface.dropTable('commits');
   }
 };

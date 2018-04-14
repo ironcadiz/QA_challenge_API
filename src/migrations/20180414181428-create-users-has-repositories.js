@@ -1,26 +1,23 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('repositories', {
+    return queryInterface.createTable('users_has_repositories', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      repositoryId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: 'repositories',
+          key: 'id'
+        }
       },
-      score: {
-        type: Sequelize.INTEGER
-      },
-      url: {
-        type: Sequelize.STRING
-      },
-      repoId: {
-        type: Sequelize.INTEGER
-      },
-      ownerId: {
+      userId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         allowNull: false,
@@ -40,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('repositories');
+    return queryInterface.dropTable('users_has_repositories');
   }
 };
