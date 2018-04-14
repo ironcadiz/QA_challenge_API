@@ -9,6 +9,9 @@ async function authenticationMiddleware(ctx, next) {
 }
 
 module.exports = [
-  jwt({ secret: process.env.JWT_SECRET, key: "authData" }),
+  jwt({
+    secret: process.env.JWT_SECRET || "somesecrethash",
+    key: "authData",
+  }),
   authenticationMiddleware,
 ]

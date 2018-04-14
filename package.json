@@ -19,7 +19,8 @@
     "nodemon": "^1.12.1",
     "pg": "^7.4.0",
     "prettier": "^1.8.1",
-    "sequelize": "^4.22.5"
+    "sequelize": "^4.22.5",
+    "octonode": "^0.9.2"
   },
   "scripts": {
     "start": "node index.js",
@@ -44,7 +45,7 @@
     "eslint": "^4.10.0",
     "jest": "^21.2.1",
     "supertest": "^3.0.0",
-    "sequelize-cli":"4.0.0"
+    "sequelize-cli": "4.0.0"
   },
   "engines": {
     "node": ">=8.5.0",

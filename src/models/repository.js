@@ -10,9 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     {}
   )
   Repository.associate = function(models) {
+
     Repository.belongsTo(models.user, {foreignKey:"ownerId"})
     Repository.hasMany(models.Commit, {as: 'Commits', foreignKey:"repositoryId"})
     Repository.belongsToMany(models.user, {through: 'users_has_repositories'});     
+
 
   }
   return Repository
