@@ -24,12 +24,24 @@
     "test": "jest",
     "lint": "eslint ./src index.js",
     "lint:fix": "eslint --fix ./src index.js ./test",
-    "heroku-postbuild": "sequelize db:migrate"
+    "heroku-postbuild": "sequelize db:migrate",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "model:generate": "node_modules/.bin/sequelize model:generate",
+    "db:create": "node_modules/.bin/sequelize db:create",
+    "db:drop": "node_modules/.bin/sequelize db:drop",
+    "db:seed:create": "node_modules/.bin/sequelize seed:create",
+    "db:seed": "node_modules/.bin/sequelize db:seed",
+    "db:seed:all": "node_modules/.bin/sequelize db:seed:all",
+    "db:seed:undo:all": "node_modules/.bin/sequelize db:seed:undo:all",
+    "db:seed:undo": "node_modules/.bin/sequelize db:seed:undo",
+    "db:migration:create": "node_modules/.bin/sequelize migration:create",
+    "db:reset": "node_modules/.bin/sequelize db:drop && node_modules/.bin/sequelize db:create && node_modules/.bin/sequelize db:migrate && node_modules/.bin/sequelize db:seed:all"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
     "jest": "^21.2.1",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "sequelize-cli":"4.0.0"
   },
   "engines": {
     "node": ">=8.5.0",
