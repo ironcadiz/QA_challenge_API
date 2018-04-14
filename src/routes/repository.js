@@ -11,11 +11,11 @@ router.use(auth)
 
 //Agregar un repositorio a la plataforma
 router.post("repository create", "/", async ctx => {
-    const token = ctx.headers.token
-    const user = ctx.state.currentUser
-    const { repoId, name} = ctx.request.body
-    const newRepo = await ctx.orm.Repository.create({repoId,name,ownerId: user.id,})
-    ctx.body = {repository:newRepo}        
+  const token = ctx.headers.token
+  const user = ctx.state.currentUser
+  const { repoId, name} = ctx.request.body
+  const newRepo = await ctx.orm.Repository.create({repoId,name,ownerId: user.id,})
+  ctx.body = { repository:newRepo }
 })
 
 
