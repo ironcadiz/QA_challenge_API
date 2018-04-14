@@ -1,6 +1,6 @@
 const KoaRouter = require("koa-router")
 const auth = require("../middlewares/authentication")
-
+const parseRules = require("../middlewares/rules")
 const router = new KoaRouter()
 
 const create_commits = async (ctx,commits,repo) => {
@@ -12,6 +12,7 @@ const create_commits = async (ctx,commits,repo) => {
 }
 
 //create commit from webhook
+router.use(parseRules)
 router.post("commit_create", "/", async ctx => {
   const { commits, repository } = ctx.request.body
   const response = {}

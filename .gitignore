@@ -59,4 +59,6 @@ typings/
 # env vars
 .envrc
 
+src/public/*
+!src/public/default_rules.json
 .idea
