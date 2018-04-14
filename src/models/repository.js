@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 module.exports = (sequelize, DataTypes) => {
   var Repository = sequelize.define(
     "Repository",
@@ -17,5 +19,8 @@ module.exports = (sequelize, DataTypes) => {
 
 
   }
+  Repository.hook("afterCreate" ,function(repository, options){
+    fs.createReadStream('src/public/default_rules.json').pipe(fs.createWriteStream(`src/public/${repository.repoId}_rules.json`));
+  })
   return Repository
 }

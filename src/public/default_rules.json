@@ -1,0 +1,14 @@
+{
+    "lint":{
+        "warning":5,
+        "error":5
+    },
+    "tasks":{
+        "words": ["TODO","FIXME","BUG"],
+        "value": [10,15,10]
+    },
+    "commits": {
+        "regex": ".*",
+        "value": 20
+    }
+}
