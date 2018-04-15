@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     branch: DataTypes.STRING,
     commitId: DataTypes.STRING,
     score: DataTypes.INTEGER,
+    message: DataTypes.STRING
   }, {});
   Commit.associate = function(models) {
     Commit.belongsTo(models.Repository, {foreignKey: "repositoryId"})
