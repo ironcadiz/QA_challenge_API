@@ -1,7 +1,7 @@
 const KoaRouter = require("koa-router")
 const auth = require("../middlewares/authentication")
 const parseRules = require("../middlewares/rules")
-const git = require("../helpers/git")
+const analize = require("../helpers/analyzeCommit")
 
 const router = new KoaRouter()
 
@@ -9,10 +9,10 @@ const create_commits = async (ctx,commits,repo,ref) => {
   const promises = commits.map(async commit => {
     const commiter = await ctx.orm.user.findOne({ where: {email: commit.author.email }})
     const dbCommit = await ctx.orm.Commit.create({userId:commiter.id, repositoryId: repo.id, commitId:commit.id, branch:ref.split("/").slice(-1)[0]})
-    git.clone_branch(`src/public/repos/${dbCommit.id}`,repo.fullName,dbCommit.branch)
+    analize(dbCommit, repo)
     return dbCommit
   })
-  return Promise.all(promises)
+  return promises
 }
 
 //create commit from webhook
@@ -22,11 +22,11 @@ router.post("commit_create", "/", async ctx => {
   const response = {}
   const repo = await ctx.orm.Repository.findOne({ where: { repoId: repository.id } })
   if (repo) {
-    response.commits = await create_commits(ctx, commits, repo,ref)
+    create_commits(ctx, commits, repo,ref)
   } else {
     const owner = await ctx.orm.user.findOne({where:{email:repository.owner.email}})
     const new_repo = await ctx.orm.Repository.create({repoId:repository.id,name:repository.name, ownerId:owner.id, fullName:repository.full_name})
-    response.commits = await create_commits(ctx, commits, new_repo, ref)
+    create_commits(ctx, commits, new_repo, ref)
     response.repo = new_repo
   }
   ctx.body = response

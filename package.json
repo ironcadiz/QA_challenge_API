@@ -27,6 +27,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "jest",
+    "linter": "eslint",
     "lint": "eslint ./src index.js",
     "lint:fix": "eslint --fix ./src index.js ./test",
     "heroku-postbuild": "sequelize db:migrate",
