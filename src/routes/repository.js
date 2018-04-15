@@ -1,10 +1,42 @@
 const KoaRouter = require("koa-router")
 const auth = require("../middlewares/authentication")
 const request = require("superagent")
+const _ = require("lodash")
+const Promise = require("bluebird")
 
 const router = new KoaRouter()
 
 router.use(auth)
+
+router.get("repositories", "/", async ctx => {
+  const repositories = await ctx.orm.Repository.findAll({
+    where: {
+      ownerId: ctx.state.currentUser.id,
+    },
+  })
+  ctx.body = repositories
+})
+
+router.get("contributors", "/contributors", async ctx => {
+  const repositories = await ctx.orm.Repository.findAll({
+    where: {
+      ownerId: ctx.state.currentUser.id,
+    },
+  })
+  const contributorsPromises = repositories.map(repo => repo.getContributors())
+  const contributors = await Promise.all(contributorsPromises)
+  const contributorsByRepo = _.reduce(
+    repositories,
+    (prev, next, i) => {
+      return {
+        ...prev,
+        [next.id]: contributors[i],
+      }
+    },
+    {}
+  )
+  ctx.body = contributorsByRepo
+})
 
 // mostrar todos los repos de un usuario.
 
