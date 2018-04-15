@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Repository.belongsTo(models.user, {foreignKey:"ownerId"})
     Repository.hasMany(models.Commit, {as: 'Commits', foreignKey:"repositoryId"})
-    Repository.belongsToMany(models.user, {through: 'users_has_repositories'});     
+    Repository.belongsToMany(models.user, {as: "Contributors", through: 'Users_has_repositories', foreignKey:"repositoryId"});     
 
 
   }

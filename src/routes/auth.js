@@ -13,7 +13,7 @@ router.post("auth", "/", async ctx => {
           id: user.id,
           email: user.email,
         },
-        process.env.JWT_SECRET,
+        process.env.JWT_SECRET || "123123123",
         (err, tokenResult) => (err ? reject(err) : resolve(tokenResult))
       )
     })
@@ -27,8 +27,8 @@ router.post("github/signin", "/github", async ctx => {
   const data = await request
     .post("https://github.com/login/oauth/access_token")
     .send({
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
+      client_id: process.env.CLIENT_ID || "0cd45ce3b4daad57335a",
+      client_secret: process.env.CLIENT_SECRET || "5b9d8674868c5f1bcac958f3432b78dd1c965490",
       code: ctx.request.body.code.code,
     })
     .end()
@@ -48,7 +48,7 @@ router.post("github/signin", "/github", async ctx => {
           id: user.id,
           email: user.email,
         },
-        process.env.JWT_SECRET,
+        process.env.JWT_SECRET || "123123123",
         (err, tokenResult) => (err ? reject(err) : resolve(tokenResult))
       )
     })
@@ -73,7 +73,7 @@ router.post("github/signin", "/github", async ctx => {
             id: user.id,
             email: user.email,
           },
-          process.env.JWT_SECRET,
+          process.env.JWT_SECRET || "123123123",
           (err, tokenResult) => (err ? reject(err) : resolve(tokenResult))
         )
       })
