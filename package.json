@@ -11,6 +11,7 @@
     "bluebird": "^3.5.1",
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
+    "find-in-files": "^0.5.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
@@ -20,14 +21,14 @@
     "koa-session": "^5.5.0",
     "lodash": "^4.17.5",
     "nodemon": "^1.12.1",
+    "octonode": "^0.9.2",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "pg": "^7.4.0",
     "prettier": "^1.8.1",
     "sequelize": "^4.22.5",
-    "superagent": "^3.8.2",
-    "octonode": "^0.9.2",
-    "shelljs":"^0.8.1"
+    "shelljs": "^0.8.1",
+    "superagent": "^3.8.2"
   },
   "scripts": {
     "start": "node index.js",
