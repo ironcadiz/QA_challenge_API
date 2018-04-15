@@ -14,6 +14,9 @@ module.exports = {
       commitId: {
         type: Sequelize.STRING
       },
+      message: {
+        type: Sequelize.STRING
+      },
       score: {
         type: Sequelize.INTEGER
       },
