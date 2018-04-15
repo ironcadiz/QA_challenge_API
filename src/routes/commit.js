@@ -6,6 +6,29 @@ const _ = require("lodash")
 
 const router = new KoaRouter()
 
+router.use("/all", auth)
+
+router.get("commits", "/all", async ctx => {
+  console.log("user id", ctx.state.currentUser)
+  const commits = await ctx.orm.Commit.findAll({
+    where: {
+      userId: ctx.state.currentUser.id,
+    },
+  })
+
+  ctx.body = _.reduce(
+    commits,
+    (prev, next) => {
+      if (!prev[next.repositoryId]) prev[next.repositoryId] = []
+      return {
+        ...prev,
+        [next.repositoryId]: [...prev[next.repositoryId], next],
+      }
+    },
+    {}
+  )
+})
+
 const create_commits = async (ctx, commits, repo, ref) => {
   const promises = commits.map(async commit => {
     const commiter = await ctx.orm.user.findOne({
@@ -51,28 +74,6 @@ router.post("commit_create", "/", async ctx => {
     response.repo = new_repo
   }
   ctx.body = response
-})
-
-router.use(auth)
-
-router.get("commits", "/", async ctx => {
-  const commits = await ctx.orm.Commit.findAll({
-    where: {
-      userId: ctx.state.currentUser.id,
-    },
-  })
-
-  ctx.body = _.reduce(
-    commits,
-    (prev, next) => {
-      if (!prev[next.repositoryId]) prev[next.repositoryId] = []
-      return {
-        ...prev,
-        [next.repositoryId]: [...prev[next.repositoryId], next],
-      }
-    },
-    {}
-  )
 })
 
 module.exports = router
