@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   Commit.associate = function(models) {
     Commit.belongsTo(models.Repository, {foreignKey: "repositoryId"})
     Commit.belongsTo(models.user, {foreignKey: "userId"})
+    Commit.hasMany(models.Score, {as: 'Scores', foreignKey: "commitId" })
   };
   return Commit;
 };

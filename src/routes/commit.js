@@ -14,6 +14,7 @@ router.get("commits", "/all", async ctx => {
     where: {
       userId: ctx.state.currentUser.id,
     },
+    include: ["Scores"],
   })
 
   ctx.body = _.reduce(
@@ -33,6 +34,8 @@ const create_commits = async (ctx, commits, repo, ref) => {
   const promises = commits.map(async commit => {
     const commiter = await ctx.orm.user.findOne({ where: {email: commit.author.email }})
     const dbCommit = await ctx.orm.Commit.create({userId:commiter.id, repositoryId: repo.id, commitId:commit.id, branch:ref.split("/").slice(-1)[0], message:commit.message})
+    repo.addContributor(commiter)
+
     analize(dbCommit, repo, ctx)
     return dbCommit
   })
