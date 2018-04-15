@@ -18,7 +18,14 @@ router.post("repository create", "/", async ctx => {
   ctx.body = { repository:newRepo }
 })
 
-
+router.get("repositories", "/", async ctx => {
+  const repositories = await ctx.orm.Repository.findAll({
+    where: {
+      ownerId: ctx.state.currentUser.id,
+    },
+  })
+  ctx.body = repositories
+})
 
 //Editar un repositorio a la plataforma
 //Eliminar un repositorio
