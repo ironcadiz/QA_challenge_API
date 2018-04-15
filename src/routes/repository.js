@@ -20,7 +20,7 @@ router.post("repository create", "/", async ctx => {
     .set("Authorization", "Bearer " + user.gitToken)
 
   const repository = await ctx.orm.Repository.find({ where: { name } })
-  if (!repository) {
+  if (repository) {
     ctx.body = {
       error: true,
       message: "El repositorio ya se encuentra agregado",
