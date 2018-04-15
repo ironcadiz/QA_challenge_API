@@ -3,6 +3,7 @@ const koaBody = require("koa-body")
 const koaLogger = require("koa-logger")
 const routes = require("./routes")
 const orm = require("./models")
+const cors = require("@koa/cors")
 // App constructor
 const app = new Koa()
 
@@ -12,6 +13,8 @@ app.context.orm = orm
 /**
  * Middlewares
  */
+
+app.use(cors({ origin: "*" }))
 
 // expose running mode in ctx.state
 app.use((ctx, next) => {
