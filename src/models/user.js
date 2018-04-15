@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         associate: function(models) {
           user.hasMany(models.Repository, {foreignKey:"ownerId"})
           user.hasMany(models.Commits, {foreignKey:"userId"})
-          user.belongsToMany(Repository, {through: 'users_has_repositories'});     
+          user.belongsToMany(models.Repository, {as: "Contributed", through: 'Users_has_repositories', foreignKey:"userId"});     
         },
       },
     }
