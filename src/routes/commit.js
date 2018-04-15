@@ -14,6 +14,7 @@ router.get("commits", "/all", async ctx => {
     where: {
       userId: ctx.state.currentUser.id,
     },
+    include: ["Scores"],
   })
 
   ctx.body = _.reduce(
