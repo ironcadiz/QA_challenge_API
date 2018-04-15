@@ -1,11 +1,11 @@
 const shell = require("shelljs")
 
-function clone(dir, repo){
-  shell.exec(`git clone https://github.com/${repo} ${dir}`)
+async function clone(dir, repo){
+  return shell.exec(`git clone https://github.com/${repo} ${dir}`, {async:true})
 }
 
-function clone_branch(dir, repo, branch){
-  shell.exec(`git clone -b ${branch} https://github.com/${repo} ${dir}`)
+async function clone_branch(dir, repo, branch){
+  return shell.exec(`git clone -b ${branch} https://github.com/${repo} ${dir}`)
 }
 
 function pull(dir, type) {
