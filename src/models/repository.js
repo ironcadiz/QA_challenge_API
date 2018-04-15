@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     "Repository",
     {
       name: DataTypes.STRING,
+      fullName: DataTypes.STRING,
       score: DataTypes.INTEGER,
       url: DataTypes.STRING,
       repoId: DataTypes.STRING

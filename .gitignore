@@ -59,6 +59,8 @@ typings/
 # env vars
 .envrc
 
-src/public/*
+src/public/*.json
 !src/public/default_rules.json
+src/public/repos/*
+!src/public/repos/.keep
 .idea
