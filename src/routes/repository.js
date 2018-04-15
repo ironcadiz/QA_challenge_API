@@ -14,7 +14,13 @@ router.get("repositories", "/", async ctx => {
       ownerId: ctx.state.currentUser.id,
     },
   })
-  ctx.body = repositories
+  ctx.body = [
+    { name: "html-votaciones", id: 1 },
+    { name: "react-template", id: 2 },
+    { name: "koa-boilerplate", id: 3 },
+    { name: "create-koa-api", id: 4 },
+    ...repositories,
+  ]
 })
 
 router.get("contributors", "/contributors", async ctx => {
@@ -25,16 +31,32 @@ router.get("contributors", "/contributors", async ctx => {
   })
   const contributorsPromises = repositories.map(repo => repo.getContributors())
   const contributors = await Promise.all(contributorsPromises)
-  const contributorsByRepo = _.reduce(
-    repositories,
-    (prev, next, i) => {
-      return {
-        ...prev,
-        [next.id]: contributors[i],
-      }
-    },
-    {}
-  )
+  const contributorsByRepo = {
+    1: [
+      {
+        id: 1,
+        name: "rofassler",
+      },
+      {
+        id: 2,
+        name: "ironcadiz",
+      },
+      {
+        id: 3,
+        name: "gsulloa",
+      },
+    ],
+    ..._.reduce(
+      repositories,
+      (prev, next, i) => {
+        return {
+          ...prev,
+          [next.id]: contributors[i],
+        }
+      },
+      {}
+    ),
+  }
   ctx.body = contributorsByRepo
 })
 
