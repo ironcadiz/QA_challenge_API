@@ -62,5 +62,6 @@ typings/
 src/public/*.json
 !src/public/default_rules.json
 src/public/repos/*
+src/public/lint/*.json
 !src/public/repos/.keep
 .idea
